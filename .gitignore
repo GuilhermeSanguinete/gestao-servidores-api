@@ -25,9 +25,6 @@ logs/
 # Testes
 coverage/
 
-# Banco (caso gere dumps locais)
-*.sql
-
 # Build (se gerar futuramente)
 dist/
 build/
