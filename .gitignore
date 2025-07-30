@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Ambiente
+.env
+
+# Editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Testes
+coverage/
+
+# Banco (caso gere dumps locais)
+*.sql
+
+# Build (se gerar futuramente)
+dist/
+build/
