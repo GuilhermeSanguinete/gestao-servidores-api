@@ -20,3 +20,13 @@ export async function alterarTag(tag) {
 
     return resultado;
 }
+
+export async function buscarTagPorId(id) {
+    const tags = await tagRepository.getTagPorId(id);
+    return tags;
+}
+
+export async function listaTagsPorNome(nome) {
+    const tags = await tagRepository.getTagPorNome(nome);
+    return tags;
+}

@@ -33,3 +33,31 @@ export async function alterarTag(req, res) {
         res.status(500).json({ error: 'Erro ao alterar a tag' });
     }
 }
+
+export async function buscaTagPorId(req, res) {
+    try {
+        const id = req.params.id;
+        const tag = await tagService.buscarTagPorId(id);
+
+        if (!tag || tag.length === 0) return res.status(404).json({ error: 'Tag não encontrada' });
+
+        res.json(tag);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar tag por Id' });
+    }
+}
+
+export async function listaTagsPorNome(req, res) {
+    try {
+        const nome = req.body.nome;
+        const tag = await tagService.listaTagsPorNome(nome);
+
+        if (!tag || tag.length === 0) return res.status(404).json({ error: 'Tag com este nome não encontrada' });
+        
+        res.json(tag);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar tags por Nome' });
+    }
+}

@@ -14,3 +14,13 @@ export async function updateTag(tag) {
     const [resultado] = await db.query('UPDATE tags SET nome = (?) where id = (?)', [tag.nome, tag.id]);
     return resultado.affectedRows;
 }
+
+export async function getTagPorId(id) {
+    const [linha] = await db.query('SELECT * FROM tags WHERE id = (?)', [id]);
+    return linha;
+}
+
+export async function getTagPorNome(nome) {
+    const [linhas] = await db.query('SELECT * FROM tags WHERE nome = ?', [nome]);
+    return linhas;
+}
