@@ -11,14 +11,25 @@ export async function listaTags(req, res) {
 }
 
 export async function cadastrarTag(req, res) {
-    try{
+    try {
         const nome = req.body.nome;
-        if (!nome) return res.status(400).json({ error: 'Nome da tag é obrigatório' })
-        
+
         const resultado = await tagService.cadastrarTag(nome);
         res.status(201).json(resultado)
     }
-    catch (error){
-        res.status(500).json({ error: 'Erro ao cadastrar nova tag'});
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao cadastrar nova tag' });
+    }
+}
+
+export async function alterarTag(req, res) {
+    try {
+        const tag = req.body;
+
+        const resultado = await tagService.alterarTag(tag);
+        res.status(201).json({ message: 'Tag atualizada com sucesso' });
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao alterar a tag' });
     }
 }

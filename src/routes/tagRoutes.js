@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.get('/', tagController.listaTags);
 router.post('/', tagController.cadastrarTag);
+router.put('/', tagController.alterarTag)
 
 export default router;
