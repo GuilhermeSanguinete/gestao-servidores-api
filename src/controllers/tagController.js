@@ -18,6 +18,9 @@ export async function cadastrarTag(req, res) {
         res.status(201).json(resultado)
     }
     catch (error) {
+        if (error.statusCode) {
+            return res.status(error.statusCode).json({ error: error.message });
+        }
         res.status(500).json({ error: 'Erro ao cadastrar nova tag' });
     }
 }
@@ -30,6 +33,9 @@ export async function alterarTag(req, res) {
         res.status(201).json({ message: 'Tag atualizada com sucesso' });
     }
     catch (error) {
+        if (error.statusCode) {
+            return res.status(error.statusCode).json({ error: error.message });
+        }
         res.status(500).json({ error: 'Erro ao alterar a tag' });
     }
 }
@@ -54,7 +60,7 @@ export async function listaTagsPorNome(req, res) {
         const tag = await tagService.listaTagsPorNome(nome);
 
         if (!tag || tag.length === 0) return res.status(404).json({ error: 'Tag com este nome não encontrada' });
-        
+
         res.json(tag);
     }
     catch (error) {
