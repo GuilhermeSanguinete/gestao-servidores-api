@@ -8,5 +8,6 @@ router.post('/', tagController.cadastrarTag);
 router.put('/', tagController.alterarTag);
 router.get('/:id', tagController.buscaTagPorId);
 router.get('/busca/nome', tagController.listaTagsPorNome);
+router.delete('/', tagController.deletarTag);
 
 export default router;

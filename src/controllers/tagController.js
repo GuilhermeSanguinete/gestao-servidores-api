@@ -28,8 +28,7 @@ export async function cadastrarTag(req, res) {
 export async function alterarTag(req, res) {
     try {
         const tag = req.body;
-
-        const resultado = await tagService.alterarTag(tag);
+        await tagService.alterarTag(tag);
         res.status(201).json({ message: 'Tag atualizada com sucesso' });
     }
     catch (error) {
@@ -65,5 +64,20 @@ export async function listaTagsPorNome(req, res) {
     }
     catch (error) {
         res.status(500).json({ error: 'Erro ao buscar tags por Nome' });
+    }
+}
+
+export async function deletarTag(req, res) {
+    try {
+        const id = req.body.id;
+        await tagService.deletarTag(id);
+
+        res.status(201).json({ message: 'Tag atualizada com sucesso' });
+    }
+    catch (error) {
+        if (error.statusCode) {
+            return res.status(error.status).json({ error: error.message });
+        }
+        res.status(500).json({ error: 'Erro ao deletar a tag' })
     }
 }

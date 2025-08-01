@@ -56,3 +56,16 @@ export async function listaTagsPorNome(nome) {
     const tag = await tagRepository.getTagPorNome(nome);
     return tag;
 }
+
+export async function deletarTag(id) {
+    const idValido = await tagRepository.getTagPorId(id);
+
+    if (idValido.length === 0) {
+        const err = new Error(`Não encontrado tag com id: ${id}`);
+        err.statusCode = 404;
+        throw err;
+    }
+
+    const resultado = await tagRepository.deleteTag(id);
+    return resultado;
+}

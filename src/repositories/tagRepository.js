@@ -21,6 +21,11 @@ export async function getTagPorId(id) {
 }
 
 export async function getTagPorNome(nome) {
-    const [linhas] = await db.query('SELECT * FROM tags WHERE nome = ?', [nome]);
+    const [linhas] = await db.query('SELECT * FROM tags WHERE nome = (?)', [nome]);
     return linhas;
+}
+
+export async function deleteTag(id) {
+    const [resultado] = await db.query('DELETE FROM tags WHERE id = (?)', [id]);
+    return resultado.affectedRows;
 }
