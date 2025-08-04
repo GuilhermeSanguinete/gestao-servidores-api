@@ -76,7 +76,7 @@ export async function deletarTag(req, res) {
     }
     catch (error) {
         if (error.statusCode) {
-            return res.status(error.status).json({ error: error.message });
+            return res.status(error.statusCode).json({ error: error.message });
         }
         res.status(500).json({ error: 'Erro ao deletar a tag' })
     }

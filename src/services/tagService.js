@@ -1,4 +1,5 @@
 import * as tagRepository from '../repositories/tagRepository.js';
+import * as empresaRepository from '../services/empresaService.js'
 
 export async function listaTags() {
     const tags = await tagRepository.getTodasTags();
@@ -63,6 +64,14 @@ export async function deletarTag(id) {
     if (idValido.length === 0) {
         const err = new Error(`Não encontrado tag com id: ${id}`);
         err.statusCode = 404;
+        throw err;
+    }
+
+    const existeEmpresa = await empresaRepository.getEmpresasPorSetor(id)
+
+    if (existeEmpresa.length !== 0){
+        const err = new Error('Não é possível excluir esta tag, pois há empresas cadastradas com esta');
+        err.statusCode = 400;
         throw err;
     }
 
