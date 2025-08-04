@@ -10,6 +10,17 @@ export async function listaTodasEmpresas(req, res) {
     }
 }
 
+export async function getEmpresasPorId(req, res) {
+    try {
+        const id = req.params.id;
+        const resultado = await empresaService.getEmpresasPorId(id);
+        res.status(200).json(resultado);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao consulta empresa por id'});
+    }
+}
+
 export async function cadastraEmpresa(req, res) {
     try {
         const empresa = req.body;
@@ -28,7 +39,7 @@ export async function alteraEmpresa(req, res) {
     try {
         const empresa = req.body;
         await empresaService.alteraEmpresa(empresa);
-        res.status(200).json({ message: 'Empresa atualizada com sucesso!'});
+        res.status(200).json({ message: 'Empresa atualizada com sucesso!' });
     }
     catch (error) {
         if (error.statusCode) {
@@ -42,7 +53,7 @@ export async function deletaEmpresa(req, res) {
     try {
         const id = req.body.id;
         await empresaService.deletaEmpresa(id);
-        res.status(200).json({ message: 'Empresa deletada com sucesso!'});
+        res.status(200).json({ message: 'Empresa deletada com sucesso!' });
     }
     catch (error) {
         res.status(500).json({ error: "Erro ao deletar empresa" });

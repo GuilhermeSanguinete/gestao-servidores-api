@@ -5,6 +5,11 @@ export async function getListaEmpresas() {
     return linhas;
 }
 
+export async function getEmpresasPorId(id) {
+    const linha = await db.query('SELECT * FROM empresas WHERE id = ?', [id]);
+    return linha[0];
+}
+
 export async function postEmpresas(empresa) {
     const [resultado] = await db.query(
         'INSERT INTO empresas (nome, setor, cnpj, aparecer_home) VALUES ( ? , ? , ? , ?)',

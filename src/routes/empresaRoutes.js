@@ -7,5 +7,6 @@ router.get('/', empresaController.listaTodasEmpresas);
 router.post('/', empresaController.cadastraEmpresa);
 router.put('/', empresaController.alteraEmpresa);
 router.delete('/', empresaController.deletaEmpresa);
+router.get('/:id', empresaController.getEmpresasPorId);
 
 export default router;

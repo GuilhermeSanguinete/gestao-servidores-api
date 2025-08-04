@@ -5,6 +5,11 @@ export async function listaTodasEmpresas() {
     return empresas;
 }
 
+export async function getEmpresasPorId(id) {
+    const resultado = await empresaRepository.getEmpresasPorId(id);
+    return resultado;
+}
+
 export async function cadastraEmpresa(empresa) {
     const validator = validaEmpresa(empresa);
 
