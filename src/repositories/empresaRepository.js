@@ -10,6 +10,16 @@ export async function getEmpresasPorId(id) {
     return linha[0];
 }
 
+export async function getEmpresasPorNome(nome) {
+    const [resultado] = await db.query('SELECT * FROM empresas WHERE nome like ?', [`${nome}%`]);
+    return resultado;
+}
+
+export async function getEmpresasPorCNPJ(cnpj) {
+    const [resultado] = await db.query('SELECT * FROM empresas WHERE cnpj = ?', [cnpj]);
+    return resultado;
+}
+
 export async function postEmpresas(empresa) {
     const [resultado] = await db.query(
         'INSERT INTO empresas (nome, setor, cnpj, aparecer_home) VALUES ( ? , ? , ? , ?)',

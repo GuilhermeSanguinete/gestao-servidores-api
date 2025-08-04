@@ -21,6 +21,28 @@ export async function getEmpresasPorId(req, res) {
     }
 }
 
+export async function getEmpresasPorNome(req, res) {
+    try {
+        const nome = req.params.nome;
+        const resultado = await empresaService.getEmpresasPorNome(nome);
+        res.status(200).json(resultado);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao consulta empresa por nome'});
+    }
+}
+
+export async function getEmpresasPorCNPJ(req, res) {
+    try {
+        const cnpj = req.params.cnpj;
+        const resultado = await empresaService.getEmpresasPorCNPJ(cnpj);
+        res.status(200).json(resultado);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao consulta empresa por cnpj'});
+    }
+}
+
 export async function cadastraEmpresa(req, res) {
     try {
         const empresa = req.body;
