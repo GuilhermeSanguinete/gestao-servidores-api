@@ -23,3 +23,17 @@ export async function cadastraEmpresa(req, res) {
         res.status(500).json({ error: "Erro ao cadastrar nova empresa" });
     }
 }
+
+export async function alteraEmpresa(req, res) {
+    try {
+        const empresa = req.body;
+        const novaEmpresa = await empresaService.alteraEmpresa(empresa);
+        res.status(200).json({ message: 'Empresa atualizada com sucesso!'});
+    }
+    catch (error) {
+        if (error.statusCode) {
+            res.status(error.statusCode).json({ error: error.message });
+        }
+        res.status(500).json({ error: "Erro ao alterar empresa" });
+    }
+}

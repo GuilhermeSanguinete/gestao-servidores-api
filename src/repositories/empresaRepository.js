@@ -12,3 +12,11 @@ export async function postEmpresas(empresa) {
     );
     return {id: resultado.insertId, empresa};
 }
+
+export async function putEmpresas(empresa) {
+    const [resultado] = await db.query(
+        'UPDATE empresas set nome = ?, setor = ?, cnpj = ?, aparecer_home = ? WHERE id = ?',
+        [empresa.nome, empresa.setor, empresa.cnpj, empresa.aparecer_home, empresa.id]
+    );
+    return resultado.affectedRows;
+}

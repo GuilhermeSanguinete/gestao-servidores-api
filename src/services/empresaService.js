@@ -21,6 +21,11 @@ export async function cadastraEmpresa(empresa) {
     return resultado;
 }
 
+export async function alteraEmpresa(empresa) {
+    const resultado = await empresaRepository.putEmpresas(empresa);
+    return resultado;
+}
+
 function validaEmpresa(empresa) {
     const erros = [];
 
