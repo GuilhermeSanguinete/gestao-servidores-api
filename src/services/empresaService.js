@@ -26,6 +26,11 @@ export async function alteraEmpresa(empresa) {
     return resultado;
 }
 
+export async function deletaEmpresa(id) {
+    const resultado = await empresaRepository.deleteEmpresas(id);
+    return resultado;
+}
+
 function validaEmpresa(empresa) {
     const erros = [];
 

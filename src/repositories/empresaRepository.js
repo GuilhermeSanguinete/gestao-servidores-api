@@ -15,8 +15,13 @@ export async function postEmpresas(empresa) {
 
 export async function putEmpresas(empresa) {
     const [resultado] = await db.query(
-        'UPDATE empresas set nome = ?, setor = ?, cnpj = ?, aparecer_home = ? WHERE id = ?',
+        'UPDATE empresas SET nome = ?, setor = ?, cnpj = ?, aparecer_home = ? WHERE id = ?',
         [empresa.nome, empresa.setor, empresa.cnpj, empresa.aparecer_home, empresa.id]
     );
+    return resultado.affectedRows;
+}
+
+export async function deleteEmpresas(id) {
+    const [resultado] = await db.query('DELETE FROM empresas WHERE id = ?', [id]);
     return resultado.affectedRows;
 }

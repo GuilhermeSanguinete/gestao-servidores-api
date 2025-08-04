@@ -27,7 +27,7 @@ export async function cadastraEmpresa(req, res) {
 export async function alteraEmpresa(req, res) {
     try {
         const empresa = req.body;
-        const novaEmpresa = await empresaService.alteraEmpresa(empresa);
+        await empresaService.alteraEmpresa(empresa);
         res.status(200).json({ message: 'Empresa atualizada com sucesso!'});
     }
     catch (error) {
@@ -35,5 +35,16 @@ export async function alteraEmpresa(req, res) {
             res.status(error.statusCode).json({ error: error.message });
         }
         res.status(500).json({ error: "Erro ao alterar empresa" });
+    }
+}
+
+export async function deletaEmpresa(req, res) {
+    try {
+        const id = req.body.id;
+        await empresaService.deletaEmpresa(id);
+        res.status(200).json({ message: 'Empresa deletada com sucesso!'});
+    }
+    catch (error) {
+        res.status(500).json({ error: "Erro ao deletar empresa" });
     }
 }
