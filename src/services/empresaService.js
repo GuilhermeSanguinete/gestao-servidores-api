@@ -20,6 +20,11 @@ export async function getEmpresasPorCNPJ(cnpj) {
     return resultado;
 }
 
+export async function getEmpresasPorSetor(setor) {
+    const resultado = await empresaRepository.getEmpresasPorSetor(setor);
+    return resultado;
+}
+
 export async function cadastraEmpresa(empresa) {
     const validator = validaEmpresa(empresa);
 

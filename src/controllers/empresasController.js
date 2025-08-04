@@ -43,6 +43,17 @@ export async function getEmpresasPorCNPJ(req, res) {
     }
 }
 
+export async function getEmpresasPorSetor(req, res) {
+    try {
+        const setor = req.params.setor;
+        const resultado = await empresaService.getEmpresasPorSetor(setor);
+        res.status(200).json(resultado);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao consulta empresa por setor'});
+    }
+}
+
 export async function cadastraEmpresa(req, res) {
     try {
         const empresa = req.body;

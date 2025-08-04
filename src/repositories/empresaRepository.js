@@ -20,6 +20,11 @@ export async function getEmpresasPorCNPJ(cnpj) {
     return resultado;
 }
 
+export async function getEmpresasPorSetor(setor) {
+    const [resultado] = await db.query('SELECT * FROM empresas WHERE setor = ?', [setor]);
+    return resultado;
+}
+
 export async function postEmpresas(empresa) {
     const [resultado] = await db.query(
         'INSERT INTO empresas (nome, setor, cnpj, aparecer_home) VALUES ( ? , ? , ? , ?)',
