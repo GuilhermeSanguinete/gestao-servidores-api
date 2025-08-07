@@ -31,3 +31,14 @@ export async function deleteServidores(req, res) {
         res.status(500).json({ error: 'Erro ao deletar servidor.'})
     }
 }
+
+export async function putServidores(req, res) {
+    try{
+        const empresa = req.body;
+        await servidoresSerice.putServidores(empresa);
+        res.status(200).json({ message: 'Servidor atualizado com sucesso '});
+    }
+    catch (error) {
+        res.status(500).json({error: 'Erro ao ataulizar dados do servidor'})
+    }
+}

@@ -6,5 +6,6 @@ const router = express.Router();
 router.get('/', servidoresController.getServidores);
 router.post('/', servidoresController.postServidores);
 router.delete('/', servidoresController.deleteServidores);
+router.put('/', servidoresController.putServidores);
 
 export default router;

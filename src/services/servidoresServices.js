@@ -14,3 +14,8 @@ export async function deleteServidores(id) {
     const resultado = await servidoresRepository.deleteServidores(id);
     return resultado;    
 }
+
+export async function putServidores(servidor) {
+    const resultado = await servidoresRepository.putServidores(servidor);
+    return resultado;
+}
