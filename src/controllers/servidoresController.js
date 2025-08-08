@@ -42,3 +42,16 @@ export async function putServidores(req, res) {
         res.status(500).json({error: 'Erro ao ataulizar dados do servidor'})
     }
 }
+
+export async function getServidorById(req, res) {
+    try {
+        const id = req.params.id;
+        const resultado = await servidoresSerice.getServidorById(id);
+        if (!resultado) {
+            return res.status(404).json({ message: 'Servidor não encontrado' });
+        }
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar servidor por ID' });
+    }
+}

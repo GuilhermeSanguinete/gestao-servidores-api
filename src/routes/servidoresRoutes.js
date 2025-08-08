@@ -4,6 +4,7 @@ import * as servidoresController from '../controllers/servidoresController.js';
 const router = express.Router();
 
 router.get('/', servidoresController.getServidores);
+router.get('/:id', servidoresController.getServidorById);
 router.post('/', servidoresController.postServidores);
 router.delete('/', servidoresController.deleteServidores);
 router.put('/', servidoresController.putServidores);

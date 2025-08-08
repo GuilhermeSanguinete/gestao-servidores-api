@@ -19,3 +19,7 @@ export async function putServidores(servidor) {
     const resultado = await servidoresRepository.putServidores(servidor);
     return resultado;
 }
+
+export async function getServidorById(id) {
+    return await servidoresRepository.getServidorById(id);
+}

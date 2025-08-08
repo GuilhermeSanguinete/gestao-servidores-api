@@ -24,3 +24,11 @@ export async function putServidores(servidor) {
     );
     return resultado;
 }
+
+export async function getServidorById(id) {
+    const [linhas] = await db.query(
+        'SELECT * FROM servidores WHERE id = ?',
+        [id]
+    );
+    return linhas[0] || null;
+}
