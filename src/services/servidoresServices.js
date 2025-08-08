@@ -23,3 +23,7 @@ export async function putServidores(servidor) {
 export async function getServidorById(id) {
     return await servidoresRepository.getServidorById(id);
 }
+
+export async function getServidoresByEmpresa(empresaId) {
+    return await servidoresRepository.getServidoresByEmpresa(empresaId);
+}

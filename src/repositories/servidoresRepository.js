@@ -32,3 +32,11 @@ export async function getServidorById(id) {
     );
     return linhas[0] || null;
 }
+
+export async function getServidoresByEmpresa(empresaId) {
+    const [linhas] = await db.query(
+        'SELECT * FROM servidores WHERE empresa_id = ?',
+        [empresaId]
+    );
+    return linhas;
+}

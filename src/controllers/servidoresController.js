@@ -55,3 +55,13 @@ export async function getServidorById(req, res) {
         res.status(500).json({ error: 'Erro ao buscar servidor por ID' });
     }
 }
+
+export async function getServidoresByEmpresa(req, res) {
+    try {
+        const empresaId = req.params.empresaId;
+        const resultado = await servidoresSerice.getServidoresByEmpresa(empresaId);
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar servidores por empresa' });
+    }
+}
