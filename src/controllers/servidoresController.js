@@ -24,7 +24,7 @@ export async function postServidores(req, res) {
 export async function deleteServidores(req, res) {
     try {
         const id = req.body.id;
-        const resultado = await servidoresService.deleteServidores(id);
+        await servidoresService.deleteServidores(id);
         res.status(200).json({ message: 'Servidor deletado com sucesso ' });
     }
     catch (error) {
