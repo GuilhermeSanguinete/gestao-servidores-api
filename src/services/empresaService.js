@@ -1,65 +1,48 @@
 import * as empresaRepository from '../repositories/empresaRepository.js';
+import { validarEmpresa } from '../validations/empresaValidation.js';
 
-export async function listaTodasEmpresas() {
-    const empresas = await empresaRepository.getListaEmpresas();
-    return empresas;
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ValidationError';
+    this.statusCode = 400;
+  }
 }
 
-export async function getEmpresasPorId(id) {
-    const resultado = await empresaRepository.getEmpresasPorId(id);
-    return resultado;
+export async function listarEmpresas() {
+  return await empresaRepository.listarEmpresas();
 }
 
-export async function getEmpresasPorNome(nome) {
-    const resultado = await empresaRepository.getEmpresasPorNome(nome);
-    return resultado;
+export async function buscarEmpresaPorId(id) {
+  return await empresaRepository.buscarEmpresaPorId(id);
 }
 
-export async function getEmpresasPorCNPJ(cnpj) {
-    const resultado = await empresaRepository.getEmpresasPorCNPJ(cnpj);
-    return resultado;
+export async function buscarEmpresasPorNome(nome) {
+  return await empresaRepository.buscarEmpresasPorNome(nome);
 }
 
-export async function getEmpresasPorSetor(setor) {
-    const resultado = await empresaRepository.getEmpresasPorSetor(setor);
-    return resultado;
+export async function buscarEmpresasPorCNPJ(cnpj) {
+  return await empresaRepository.buscarEmpresasPorCNPJ(cnpj);
 }
 
-export async function cadastraEmpresa(empresa) {
-    const validator = validaEmpresa(empresa);
-
-    console.log(validator.status);
-
-    if(validator.status === false){
-        const err = new Error(validator.message);
-        err.statusCode = 400;
-        throw err;
-    }
-    
-    const resultado = await empresaRepository.postEmpresas(empresa);
-
-    return resultado;
+export async function buscarEmpresasPorSetor(setor) {
+  return await empresaRepository.buscarEmpresasPorSetor(setor);
 }
 
-export async function alteraEmpresa(empresa) {
-    const resultado = await empresaRepository.putEmpresas(empresa);
-    return resultado;
+export async function criarEmpresa(empresa) {
+  const { status, message } = validarEmpresa(empresa);
+  if (!status) {
+    throw new ValidationError(message);
+  }
+  return await empresaRepository.criarEmpresa(empresa);
 }
 
-export async function deletaEmpresa(id) {
-    const resultado = await empresaRepository.deleteEmpresas(id);
-    return resultado;
+export async function atualizarEmpresa(empresa) {
+  const affectedRows = await empresaRepository.atualizarEmpresa(empresa);
+  return affectedRows > 0;
 }
 
-function validaEmpresa(empresa) {
-    const erros = [];
-
-    if (!empresa.nome) erros.push("Nome é obrigatório");
-    if (!empresa.setor) erros.push("Setor é obrigatório");
-    if (!empresa.cnpj) erros.push("CNPJ é obrigatório");
-
-    return {
-        status: erros.length === 0,
-        message: erros.join(', ')
-    };
+export async function deletarEmpresa(id) {
+  const affectedRows = await empresaRepository.deletarEmpresa(id);
+  return affectedRows > 0;
 }
