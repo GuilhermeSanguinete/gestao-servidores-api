@@ -3,13 +3,15 @@ import * as empresaController from '../controllers/empresasController.js';
 
 const router = express.Router();
 
-router.get('/', empresaController.listaTodasEmpresas);
-router.post('/', empresaController.cadastraEmpresa);
-router.put('/', empresaController.alteraEmpresa);
-router.delete('/', empresaController.deletaEmpresa);
-router.get('/:id', empresaController.getEmpresasPorId);
-router.get('/nome/:nome', empresaController.getEmpresasPorNome);
-router.get('/cnpj/:cnpj', empresaController.getEmpresasPorCNPJ);
-router.get('/setor/:setor', empresaController.getEmpresasPorSetor);
+router.get('/nome/:nome', empresaController.buscarEmpresasPorNome);
+router.get('/cnpj/:cnpj', empresaController.buscarEmpresasPorCNPJ);
+router.get('/setor/:setor', empresaController.buscarEmpresasPorSetor);
+
+router.get('/:id', empresaController.buscarEmpresaPorId);
+
+router.get('/', empresaController.listarEmpresas);
+router.post('/', empresaController.criarEmpresa);
+router.put('/:id', empresaController.atualizarEmpresa);
+router.delete('/:id', empresaController.deletarEmpresa);
 
 export default router;
