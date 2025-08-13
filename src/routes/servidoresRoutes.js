@@ -3,11 +3,13 @@ import * as servidoresController from '../controllers/servidoresController.js';
 
 const router = express.Router();
 
-router.get('/', servidoresController.getServidores);
-router.get('/:id', servidoresController.getServidorById);
-router.get('/empresa/:empresaId', servidoresController.getServidoresByEmpresa);
-router.post('/', servidoresController.postServidores);
-router.delete('/', servidoresController.deleteServidores);
-router.put('/', servidoresController.putServidores);
+router.get('/empresa/:empresaId', servidoresController.buscarServidorPorEmpresa);
+
+router.get('/:id', servidoresController.buscarServidorPorId);
+
+router.get('/', servidoresController.listarServidores);
+router.post('/', servidoresController.cadastrarServidor);
+router.delete('/', servidoresController.deletarServidor);
+router.put('/', servidoresController.atualizarServidor);
 
 export default router;

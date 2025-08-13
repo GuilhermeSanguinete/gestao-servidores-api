@@ -1,29 +1,29 @@
 import * as servidoresRepository from '../repositories/servidoresRepository.js';
 
-export async function getServidores() {
-    const resultado = await servidoresRepository.getServidores();
+export async function listarServidores() {
+    const resultado = await servidoresRepository.listarServidores();
     return resultado;
 }
 
-export async function postServidores(servidor) {
-    const resultado = await servidoresRepository.postServidores(servidor);
+export async function cadastrarServidor(servidor) {
+    const resultado = await servidoresRepository.cadastrarServidor(servidor);
     return resultado;
 }
 
-export async function deleteServidores(id) {
-    const resultado = await servidoresRepository.deleteServidores(id);
+export async function deletarServidor(id) {
+    const resultado = await servidoresRepository.deletarServidor(id);
     return resultado;    
 }
 
-export async function putServidores(servidor) {
-    const resultado = await servidoresRepository.putServidores(servidor);
+export async function atualizarServidor(servidor) {
+    const resultado = await servidoresRepository.atualizarServidor(servidor);
     return resultado;
 }
 
-export async function getServidorById(id) {
-    return await servidoresRepository.getServidorById(id);
+export async function buscarServidorPorId(id) {
+    return await servidoresRepository.buscarServidorPorId(id);
 }
 
-export async function getServidoresByEmpresa(empresaId) {
-    return await servidoresRepository.getServidoresByEmpresa(empresaId);
+export async function buscarServidorPorEmpresa(empresaId) {
+    return await servidoresRepository.buscarServidorPorEmpresa(empresaId);
 }
