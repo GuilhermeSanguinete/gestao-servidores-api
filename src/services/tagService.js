@@ -1,80 +1,62 @@
 import * as tagRepository from '../repositories/tagRepository.js';
-import * as empresaRepository from '../services/empresaService.js'
+import * as empresaRepository from '../repositories/empresaRepository.js';
+import { validarNomeObrigatorio } from '../validations/tagValidation.js';
 
-export async function listaTags() {
-    const tags = await tagRepository.getTodasTags();
-    return tags;
+function criarErro(statusCode, mensagem) {
+    const err = new Error(mensagem);
+    err.statusCode = statusCode;
+    return err;
 }
 
-export async function cadastrarTag(nome) {
-    if (!nome) {
-        const err = new Error('Nome da tag é obrigatório');
-        err.statusCode = 400;
-        throw err;
-    }
-
-    const existente = await tagRepository.getTagPorNome(nome);
-    if (existente.length !== 0) {
-        const err = new Error('Nome da tag já existente');
-        err.statusCode = 400;
-        throw err;
-    }
-
-    const resultado = await tagRepository.createTag(nome);
-
-    return resultado;
+export async function listarTags() {
+    return await tagRepository.listarTags();
 }
 
-export async function alterarTag(tag) {
-    if (!tag.nome) return res.status(400).json({ error: 'Nome da tag é obrigatório' })
+export async function criarTag(nome) {
+    validarNomeObrigatorio(nome);
 
-    const idValido = await tagRepository.getTagPorId(tag.id);
-    const existente = await tagRepository.getTagPorNome(tag.nome);
-
-    if (idValido.length === 0) {
-        const err = new Error(`Não encontrado tag com id: ${tag.id}`);
-        err.statusCode = 404;
-        throw err;
+    const jaExiste = await tagRepository.buscarTagPorNome(nome);
+    if (jaExiste.length > 0) {
+        throw criarErro(400, 'Nome da tag já existente');
     }
 
-    else if (existente.length !== 0) {
-        const err = new Error('Nome da tag já existente');
-        err.statusCode = 400;
-        throw err;
+    return await tagRepository.criarTag(nome);
+}
+
+export async function atualizarTag(id, nome) {
+    validarNomeObrigatorio(nome);
+
+    const tagExistente = await tagRepository.buscarTagPorId(id);
+    if (tagExistente.length === 0) {
+        throw criarErro(404, `Não foi encontrada tag com id: ${id}`);
     }
 
-    const resultado = await tagRepository.updateTag(tag);
+    const nomeJaExiste = await tagRepository.buscarTagPorNome(nome);
+    if (nomeJaExiste.length > 0 && nomeJaExiste[0].id !== id) {
+        throw criarErro(400, 'Nome da tag já existente');
+    }
 
-    return resultado;
+    return await tagRepository.atualizarTag(id, nome);
 }
 
 export async function buscarTagPorId(id) {
-    const tag = await tagRepository.getTagPorId(id);
-    return tag;
+    return await tagRepository.buscarTagPorId(id);
 }
 
-export async function listaTagsPorNome(nome) {
-    const tag = await tagRepository.getTagPorNome(nome);
-    return tag;
+export async function buscarTagPorNome(nome) {
+    return await tagRepository.buscarTagPorNome(nome);
 }
 
 export async function deletarTag(id) {
-    const idValido = await tagRepository.getTagPorId(id);
-
-    if (idValido.length === 0) {
-        const err = new Error(`Não encontrado tag com id: ${id}`);
-        err.statusCode = 404;
-        throw err;
+    const tagExistente = await tagRepository.buscarTagPorId(id);
+    if (tagExistente.length === 0) {
+        throw criarErro(404, `Não foi encontrada tag com id: ${id}`);
     }
 
-    const existeEmpresa = await empresaRepository.getEmpresasPorSetor(id)
-
-    if (existeEmpresa.length !== 0){
-        const err = new Error('Não é possível excluir esta tag, pois há empresas cadastradas com esta');
-        err.statusCode = 400;
-        throw err;
+    const existeEmpresa = await empresaRepository.buscarEmpresasPorSetor(id);
+    if (existeEmpresa.length > 0) {
+        throw criarErro(400, 'Não é possível excluir esta tag, pois há empresas cadastradas com esta');
     }
 
-    const resultado = await tagRepository.deleteTag(id);
-    return resultado;
+    return await tagRepository.deletarTag(id);
 }
