@@ -9,7 +9,7 @@ router.get('/:id', servidoresController.buscarServidorPorId);
 
 router.get('/', servidoresController.listarServidores);
 router.post('/', servidoresController.cadastrarServidor);
-router.delete('/', servidoresController.deletarServidor);
-router.put('/', servidoresController.atualizarServidor);
+router.delete('/:id', servidoresController.deletarServidor);
+router.put('/:id', servidoresController.atualizarServidor);
 
 export default router;

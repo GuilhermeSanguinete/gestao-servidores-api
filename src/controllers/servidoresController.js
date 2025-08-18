@@ -23,7 +23,7 @@ export async function cadastrarServidor(req, res) {
 
 export async function deletarServidor(req, res) {
     try {
-        const id = req.body.id;
+        const id = req.params.id;
         await servidoresService.deletarServidor(id);
         res.status(200).json({ message: 'Servidor deletado com sucesso ' });
     }
@@ -35,6 +35,7 @@ export async function deletarServidor(req, res) {
 export async function atualizarServidor(req, res) {
     try{
         const empresa = req.body;
+        empresa.id = req.params.id;
         await servidoresService.atualizarServidor(empresa);
         res.status(200).json({ message: 'Servidor atualizado com sucesso '});
     }
