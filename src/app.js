@@ -14,5 +14,5 @@ app.use('/tags', tagRoutes);
 app.use('/empresas', empresaRoutes);
 app.use('/servidores', servidoresRoutes);
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Api subiu na porta ${port}`));
